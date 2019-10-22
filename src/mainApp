@@ -1,0 +1,21 @@
+from tkinter import *
+from PIL import Image, ImageTk
+
+class JiveMusic:
+    def __init__(self):
+        pass
+    def main(self):
+        root = Tk()
+        root.title("JIVE MUSIC PLAYER")
+        root.geometry("600x600")
+        frame = Frame(root)
+        frame.pack()
+        bgimg = Image.open("../resources/images/JiveSplash.png")
+        backgroundImage = ImageTk.PhotoImage(bgimg)
+        label = Label(frame,image= backgroundImage)
+        label.pack()
+        root.mainloop()
+
+
+jive = JiveMusic()
+jive.main()
