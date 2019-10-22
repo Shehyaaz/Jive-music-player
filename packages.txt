@@ -1,0 +1,5 @@
+Install the below packages through PyCharm IDE. Go to Project Settings->pip-> type the package name to be installed.
+Packages:
+1. mutagen
+2. pygame
+3. Pillow
