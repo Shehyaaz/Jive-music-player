@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>484</width>
+    <height>371</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Jive Music Player</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../../resources/images/app_icon.png</normaloff>../../resources/images/app_icon.png</iconset>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QListView" name="playlistView">
+      <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="dragDropMode">
+       <enum>QAbstractItemView::DropOnly</enum>
+      </property>
+      <property name="defaultDropAction">
+       <enum>Qt::CopyAction</enum>
+      </property>
+      <property name="alternatingRowColors">
+       <bool>true</bool>
+      </property>
+      <property name="uniformItemSizes">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLabel" name="currentTimeLabel">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0:00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="timeSlider">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="totalTimeLabel">
+        <property name="minimumSize">
+         <size>
+          <width>80</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>0:00</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_5">
+      <item>
+       <widget class="QPushButton" name="previousButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../resources/images/previous.png</normaloff>../../resources/images/previous.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="playButton">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../resources/images/play.png</normaloff>../../resources/images/play.png</iconset>
+        </property>
+        <property name="checkable">
+         <bool>false</bool>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="stopButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../resources/images/stop.png</normaloff>../../resources/images/stop.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="nextButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../resources/images/next.png</normaloff>../../resources/images/next.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="loopButton">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../../resources/images/loop.png</normaloff>../../resources/images/loop.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="volume">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../../resources/images/volume-down.png</pixmap>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QSlider" name="volumeSlider">
+        <property name="maximum">
+         <number>100</number>
+        </property>
+        <property name="value">
+         <number>100</number>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>484</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFIle">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="menuPlay"/>
+    <addaction name="add_to_fav"/>
+    <addaction name="add_to_playlist"/>
+    <addaction name="separator"/>
+    <addaction name="exit_player"/>
+   </widget>
+   <widget class="QMenu" name="menuPlaylists">
+    <property name="title">
+     <string>Playlist</string>
+    </property>
+    <addaction name="new_playlist"/>
+    <addaction name="play_playlist"/>
+    <addaction name="view_playlists"/>
+    <addaction name="search_playlist"/>
+   </widget>
+   <widget class="QMenu" name="menuFavourites">
+    <property name="title">
+     <string>Favourites</string>
+    </property>
+    <addaction name="view_fav"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="about"/>
+   </widget>
+   <widget class="QMenu" name="menuPreferences">
+    <property name="title">
+     <string>Preferences</string>
+    </property>
+    <widget class="QMenu" name="menuTheme">
+     <property name="title">
+      <string>Theme</string>
+     </property>
+     <addaction name="actionDefault"/>
+     <addaction name="actionFusion"/>
+    </widget>
+    <addaction name="menuTheme"/>
+   </widget>
+   <addaction name="menuFIle"/>
+   <addaction name="menuPlaylists"/>
+   <addaction name="menuFavourites"/>
+   <addaction name="menuPreferences"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="menuPlay"/>
+   <addaction name="add_to_fav"/>
+   <addaction name="add_to_playlist"/>
+   <addaction name="new_playlist"/>
+   <addaction name="play_playlist"/>
+   <addaction name="view_fav"/>
+  </widget>
+  <action name="menuPlay">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/play_tool.png</normaloff>../../resources/images/play_tool.png</iconset>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+  </action>
+  <action name="create_playlist">
+   <property name="text">
+    <string>Create Playlist</string>
+   </property>
+  </action>
+  <action name="view_playlist">
+   <property name="text">
+    <string>View PLaylists</string>
+   </property>
+  </action>
+  <action name="add_to_fav">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/add_fav.png</normaloff>../../resources/images/add_fav.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add to Favourites</string>
+   </property>
+  </action>
+  <action name="add_to_playlist">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/playlist_add.png</normaloff>../../resources/images/playlist_add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Add to Playlist</string>
+   </property>
+  </action>
+  <action name="exit_player">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/exit.png</normaloff>../../resources/images/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exit</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="new_playlist">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/new_playlist.png</normaloff>../../resources/images/new_playlist.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Playlist</string>
+   </property>
+  </action>
+  <action name="play_playlist">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/playlist_play.png</normaloff>../../resources/images/playlist_play.png</iconset>
+   </property>
+   <property name="text">
+    <string>Play Playlist</string>
+   </property>
+  </action>
+  <action name="about">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/about.png</normaloff>../../resources/images/about.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionOpen_file">
+   <property name="text">
+    <string>Open file..</string>
+   </property>
+  </action>
+  <action name="actionDefault">
+   <property name="text">
+    <string>Default</string>
+   </property>
+  </action>
+  <action name="actionFusion">
+   <property name="text">
+    <string>Fusion</string>
+   </property>
+  </action>
+  <action name="view_playlists">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/view_playlists.png</normaloff>../../resources/images/view_playlists.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Playlist</string>
+   </property>
+  </action>
+  <action name="view_fav">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/fav.png</normaloff>../../resources/images/fav.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Favourites</string>
+   </property>
+  </action>
+  <action name="search_playlist">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/search.png</normaloff>../../resources/images/search.png</iconset>
+   </property>
+   <property name="text">
+    <string>Search Playlist</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
