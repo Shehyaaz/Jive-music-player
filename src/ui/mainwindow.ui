@@ -2,12 +2,15 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>371</height>
+    <width>691</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +19,9 @@
   <property name="windowIcon">
    <iconset>
     <normaloff>../../resources/images/app_icon.png</normaloff>../../resources/images/app_icon.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">
@@ -26,26 +32,46 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QListView" name="playlistView">
-      <property name="acceptDrops">
-       <bool>true</bool>
-      </property>
-      <property name="showDropIndicator" stdset="0">
-       <bool>true</bool>
-      </property>
-      <property name="dragDropMode">
-       <enum>QAbstractItemView::DropOnly</enum>
-      </property>
-      <property name="defaultDropAction">
-       <enum>Qt::CopyAction</enum>
-      </property>
-      <property name="alternatingRowColors">
-       <bool>true</bool>
-      </property>
-      <property name="uniformItemSizes">
-       <bool>true</bool>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="songThumbnail">
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../../resources/images/Welcome.png</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>false</bool>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListView" name="playlistView">
+        <property name="minimumSize">
+         <size>
+          <width>230</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>230</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(211, 215, 207);</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_4">
@@ -167,18 +193,36 @@
         <property name="text">
          <string/>
         </property>
+        <property name="textFormat">
+         <enum>Qt::PlainText</enum>
+        </property>
         <property name="pixmap">
          <pixmap>../../resources/images/volume-down.png</pixmap>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QSlider" name="volumeSlider">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="maximum">
          <number>100</number>
         </property>
         <property name="value">
-         <number>100</number>
+         <number>40</number>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -194,7 +238,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>484</width>
+     <width>691</width>
      <height>22</height>
     </rect>
    </property>
@@ -214,7 +258,7 @@
     </property>
     <addaction name="new_playlist"/>
     <addaction name="play_playlist"/>
-    <addaction name="view_playlists"/>
+    <addaction name="delete_playlist"/>
     <addaction name="search_playlist"/>
    </widget>
    <widget class="QMenu" name="menuFavourites">
@@ -265,6 +309,7 @@
    <addaction name="new_playlist"/>
    <addaction name="play_playlist"/>
    <addaction name="view_fav"/>
+   <addaction name="search_playlist"/>
   </widget>
   <action name="menuPlay">
    <property name="icon">
@@ -357,13 +402,13 @@
     <string>Fusion</string>
    </property>
   </action>
-  <action name="view_playlists">
+  <action name="delete_playlist">
    <property name="icon">
     <iconset>
-     <normaloff>../../resources/images/view_playlists.png</normaloff>../../resources/images/view_playlists.png</iconset>
+     <normaloff>../../resources/images/exit.png</normaloff>../../resources/images/exit.png</iconset>
    </property>
    <property name="text">
-    <string>View Playlist</string>
+    <string>Delete Playlist</string>
    </property>
   </action>
   <action name="view_fav">
