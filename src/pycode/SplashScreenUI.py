@@ -6,9 +6,29 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+class AnimatedFrame(QtWidgets.QFrame):
+    def __init__(self, *args):
+        super(AnimatedFrame,self).__init__(*args)
+        bytear = QtCore.QByteArray()
+        bytear.append('bgcolor')
+        self.anim = QtCore.QPropertyAnimation(self,bytear)
+        self.anim.setStartValue(QtGui.QColor(236,236,236))
+        self.anim.setKeyValueAt(0.5, QtGui.QColor(117,80,123))
+        self.anim.setEndValue(QtGui.QColor(52,120,184))
+        self.anim.setDuration(2500)
+        self.anim.setLoopCount(1)
+
+    def getBackColor(self):
+        return self.palette().color(self.pal_ele)
+
+    def setBackColor(self, col):
+        bg = "background-color: rgb(%d,%d,%d);"%(col.red(),col.green(),col.blue())
+        self.setStyleSheet(bg)
+
+    pal_ele = QtGui.QPalette.Window
+    bgcolor = QtCore.pyqtProperty(QtGui.QColor,getBackColor,setBackColor)
 
 class Ui_SplashWindow(object):
     def setupUi(self, SplashWindow):
@@ -25,8 +45,9 @@ class Ui_SplashWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.frame = QtWidgets.QFrame(self.verticalLayoutWidget)
-        self.frame.setStyleSheet("background-color:rgb(52, 101, 164);")
+        # self.frame = QtWidgets.QFrame(self.verticalLayoutWidget)
+        self.frame = AnimatedFrame(self.verticalLayoutWidget)
+        #self.frame.setStyleSheet("background-color:rgb(52, 101, 164);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")

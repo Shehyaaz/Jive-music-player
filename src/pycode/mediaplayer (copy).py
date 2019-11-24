@@ -5,14 +5,12 @@ from PyQt5.QtMultimedia import *
 from PyQt5.QtMultimediaWidgets import *
 
 from MainWindow import Ui_MainWindow
-from SplashScreenController import SplashScreenController
-import sys,time
 
 def hhmmss(ms):
     # s = 1000
     # m = 60000
-    # h = 3600000000
-    h, r = divmod(ms, 3600000000)
+    # h = 360000
+    h, r = divmod(ms, 36000)
     m, r = divmod(r, 60000)
     s, _ = divmod(r, 1000)
     return ("%d:%02d:%02d" % (h,m,s)) if h else ("%d:%02d" % (m,s))
@@ -42,28 +40,35 @@ class PlaylistModel(QAbstractListModel):
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
-        #displaying splash screen
-        self.splash = SplashScreenController(self)
-        #self.splash.anim.start()
-        QTimer.singleShot(3000,self.setUpMainWindow)
-
-    def setUpMainWindow(self):
-        self.splash.close()
         self.setupUi(self)
 
         self.player = QMediaPlayer()
 
         self.player.error.connect(self.erroralert)
-        #self.player.play()
+        self.player.play()
 
         # Setup the playlist.
         self.playlist = QMediaPlaylist()
         self.player.setPlaylist(self.playlist)
 
+        # Add viewer for video playback, separate floating window.
+        self.viewer = ViewerWindow(self)
+        self.viewer.setWindowFlags(self.viewer.windowFlags() | Qt.WindowStaysOnTopHint)
+        self.viewer.setMinimumSize(QSize(480,360))
+
+        videoWidget = QVideoWidget()
+        self.viewer.setCentralWidget(videoWidget)
+        self.player.setVideoOutput(videoWidget)
+
         # Connect control buttons/slides for media player.
         self.playButton.pressed.connect(self.playMusic)
-        self.stopButton.pressed.connect(self.playStop)
+        #self.pauseButton.pressed.connect(self.player.pause)
+        self.stopButton.pressed.connect(self.player.stop)
         self.volumeSlider.valueChanged.connect(self.player.setVolume)
+
+#        self.viewButton.toggled.connect(self.toggle_viewer)
+#        self.viewer.state.connect(self.viewButton.setChecked)
+
         self.previousButton.pressed.connect(self.playlist.previous)
         self.nextButton.pressed.connect(self.playlist.next)
 
@@ -77,21 +82,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.player.positionChanged.connect(self.update_position)
         self.timeSlider.valueChanged.connect(self.player.setPosition)
 
-        # Connect controllers to menu items
-        self.menuPlay.triggered.connect(self.open_file)
-        self.actionDefault.triggered.connect(self.defaultPalette)
-        self.actionFusion.triggered.connect(self.darkPalette)
+#        self.open_file_action.triggered.connect(self.open_file)
+        self.actionOpen_file.triggered.connect(self.open_file)
 
         self.setAcceptDrops(True)
 
         self.show()
-
-    def defaultPalette(self):
-        self.setStyleSheet("")
-
-    def darkPalette(self):
-        stylesheet = "background-color: rgb(150, 150, 150)"
-        self.setStyleSheet(stylesheet)
 
     def dragEnterEvent(self, e):
         if e.mimeData().hasUrls():
@@ -111,26 +107,19 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.playlist.setCurrentIndex(i)
             self.player.play()
 
-    def playStop(self):
-        if self.player.state() == QMediaPlayer.PlayingState:
-            icon = QIcon()
-            icon.addPixmap(QPixmap("../../resources/images/play.png"), QIcon.Normal, QIcon.Off)
-            self.playButton.setIcon(icon)
-            self.player.stop()
-
     def playMusic(self):
-        if not self.playlist.isEmpty() :
-            if self.player.state() != QMediaPlayer.PlayingState:
-                icon = QIcon()
-                icon.addPixmap(QPixmap("../../resources/images/pause.png"),QIcon.Normal, QIcon.Off)
-                self.playButton.setIcon(icon)
-                self.player.play()
-            elif self.player.state() == QMediaPlayer.PlayingState:
-                icon = QIcon()
-                icon.addPixmap(QPixmap("../../resources/images/play.png"),QIcon.Normal, QIcon.Off)
-                self.playButton.setIcon(icon)
-                self.player.pause()
-
+        if self.player.state() != QMediaPlayer.PlayingState:
+            icon = QIcon()
+            icon.addPixmap(QPixmap("/Users/Jaya/PycharmProjects/JiveMusicPlayer/venv/src/ui/images/pause.png"),
+                           QIcon.Normal, QIcon.Off)
+            self.playButton.setIcon(icon)
+            self.player.play()
+        else :
+            icon = QIcon()
+            icon.addPixmap(QPixmap("/Users/Jaya/PycharmProjects/JiveMusicPlayer/venv/src/ui/images/play.png"),
+                           QIcon.Normal, QIcon.Off)
+            self.playButton.setIcon(icon)
+            self.player.pause()
     def open_file(self):
         path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "mp3 Audio (*.mp3);mp4 Video (*.mp4);Movie files (*.mov);All files (*.*)")
 
@@ -180,13 +169,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def erroralert(self, *args):
         print(args)
 
+
+
+
 if __name__ == '__main__':
     app = QApplication([])
     app.setApplicationName("Jive Music Player")
     app.setStyle("Fusion")
-    #app.setStyleSheet(qdarkgraystyle.load_stylesheet())
+
+    # Fusion dark palette from https://gist.github.com/QuantumCD/6245215.
+    palette = QPalette()
+    palette.setColor(QPalette.Window, QColor(53, 53, 53))
+    palette.setColor(QPalette.WindowText, Qt.white)
+    palette.setColor(QPalette.Base, QColor(25, 25, 25))
+    palette.setColor(QPalette.AlternateBase, QColor(53, 53, 53))
+    palette.setColor(QPalette.ToolTipBase, Qt.white)
+    palette.setColor(QPalette.ToolTipText, Qt.white)
+    palette.setColor(QPalette.Text, Qt.white)
+    palette.setColor(QPalette.Button, QColor(53, 53, 53))
+    palette.setColor(QPalette.ButtonText, Qt.white)
+    palette.setColor(QPalette.BrightText, Qt.red)
+    palette.setColor(QPalette.Link, QColor(42, 130, 218))
+    palette.setColor(QPalette.Highlight, QColor(42, 130, 218))
+    palette.setColor(QPalette.HighlightedText, Qt.black)
+    app.setPalette(palette)
+    app.setStyleSheet("QToolTip { color: #ffffff; background-color: #2a82da; border: 1px solid white; }")
+
     window = MainWindow()
-    sys.exit(app.exec_())
-
-#end of program
-
+    app.exec_()
