@@ -14,10 +14,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>New Playlist</string>
+   <string>Delete From Favourites</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(114, 159, 207);</string>
+  </property>
+  <property name="modal">
+   <bool>false</bool>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -52,24 +55,20 @@
 font: 14pt &quot;Ubuntu&quot;;</string>
    </property>
    <property name="text">
-    <string>Playlist Name:</string>
+    <string>Song Name:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>140</x>
      <y>20</y>
-     <width>221</width>
+     <width>241</width>
      <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(238, 238, 236);
-border-color: rgb(32, 74, 135);</string>
-   </property>
-   <property name="text">
-    <string/>
+    <string notr="true">background-color: rgb(238, 238, 236);</string>
    </property>
   </widget>
  </widget>

@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>691</width>
-    <height>528</height>
+    <height>529</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,6 +35,12 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="songThumbnail">
+        <property name="maximumSize">
+         <size>
+          <width>1000</width>
+          <height>800</height>
+         </size>
+        </property>
         <property name="styleSheet">
          <string notr="true"/>
         </property>
@@ -45,7 +51,7 @@
          <pixmap>../../resources/images/Welcome.png</pixmap>
         </property>
         <property name="scaledContents">
-         <bool>true</bool>
+         <bool>false</bool>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -192,7 +198,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="lyricsButton">
         <property name="text">
          <string>Lyrics</string>
         </property>
