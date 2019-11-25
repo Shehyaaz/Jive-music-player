@@ -8,6 +8,13 @@ from MainWindow import Ui_MainWindow
 from SplashScreenController import SplashScreenController
 import sys,time
 
+from PyLyrics import *
+from mutagen.mp3 import MP3
+from mutagen.id3 import ID3
+from PIL import Image
+from PIL.ImageQt import ImageQt
+from io import BytesIO
+
 def hhmmss(ms):
     # s = 1000
     # m = 60000
@@ -42,14 +49,21 @@ class PlaylistModel(QAbstractListModel):
 class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
+        self.audio_list = []
+        self.audioTrack = None
+        self.audioTag = None
         #displaying splash screen
         self.splash = SplashScreenController(self)
-        #self.splash.anim.start()
         QTimer.singleShot(3000,self.setUpMainWindow)
 
     def setUpMainWindow(self):
         self.splash.close()
         self.setupUi(self)
+
+        # Connect controllers to menu items
+        self.menuPlay.triggered.connect(self.open_file)
+        self.actionDefault.triggered.connect(self.defaultPalette)
+        self.actionFusion.triggered.connect(self.darkPalette)
 
         self.player = QMediaPlayer()
 
@@ -77,17 +91,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.player.positionChanged.connect(self.update_position)
         self.timeSlider.valueChanged.connect(self.player.setPosition)
 
-        # Connect controllers to menu items
-        self.menuPlay.triggered.connect(self.open_file)
-        self.actionDefault.triggered.connect(self.defaultPalette)
-        self.actionFusion.triggered.connect(self.darkPalette)
-
         self.setAcceptDrops(True)
 
         self.show()
 
     def defaultPalette(self):
         self.setStyleSheet("")
+
+    def addAlbumArt(self):
+        img = Image.open(BytesIO(self.audioTag.get("APIC:").data))
+        qim = ImageQt(img)
+        self.songThumbnail.setPixmap(QPixmap.fromImage(qim))
 
     def darkPalette(self):
         stylesheet = "background-color: rgb(150, 150, 150)"
@@ -125,6 +139,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 icon.addPixmap(QPixmap("../../resources/images/pause.png"),QIcon.Normal, QIcon.Off)
                 self.playButton.setIcon(icon)
                 self.player.play()
+
             elif self.player.state() == QMediaPlayer.PlayingState:
                 icon = QIcon()
                 icon.addPixmap(QPixmap("../../resources/images/play.png"),QIcon.Normal, QIcon.Off)
@@ -132,20 +147,25 @@ class MainWindow(QMainWindow, Ui_MainWindow):
                 self.player.pause()
 
     def open_file(self):
-        path, _ = QFileDialog.getOpenFileName(self, "Open file", "", "mp3 Audio (*.mp3);mp4 Video (*.mp4);Movie files (*.mov);All files (*.*)")
+        filter = "Audio Files (*.mp3 *.ogg *.wav *.m4a)"
+        file_dialog = QFileDialog()
+        file_dialog.setFileMode(QFileDialog.ExistingFiles)
+        path,_ = file_dialog.getOpenFileNames(self, "Play Now", "", filter)
 
         if path:
-            self.playlist.addMedia(
-                QMediaContent(
-                    QUrl.fromLocalFile(path)
+            for p in path:
+                self.playlist.addMedia(
+                    QMediaContent(
+                        QUrl.fromLocalFile(p)
+                    )
                 )
-            )
+                self.audio_list.append(p)
 
         self.model.layoutChanged.emit()
 
     def update_duration(self, duration):
-        print("!", duration)
-        print("?", self.player.duration())
+        #print("!", duration)
+        #print("?", self.player.duration())
 
         self.timeSlider.setMaximum(duration)
 
@@ -163,7 +183,12 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
     def playlist_selection_changed(self, ix):
         # We receive a QItemSelection from selectionChanged.
+        #print("here")
         i = ix.indexes()[0].row()
+        self.audioTrack = MP3(self.audio_list[i])
+        self.audioTag = ID3(self.audio_list[i])
+        self.addAlbumArt()
+        #print(self.audio['APIC:'].mime)
         self.playlist.setCurrentIndex(i)
 
     def playlist_position_changed(self, i):
