@@ -45,7 +45,7 @@
          <pixmap>../../resources/images/Welcome.png</pixmap>
         </property>
         <property name="scaledContents">
-         <bool>false</bool>
+         <bool>true</bool>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -178,13 +178,23 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="loopButton">
+       <widget class="QPushButton" name="infoButton">
+        <property name="toolTip">
+         <string>Song Info</string>
+        </property>
         <property name="text">
          <string/>
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../resources/images/loop.png</normaloff>../../resources/images/loop.png</iconset>
+          <normaloff>../../resources/images/about.png</normaloff>../../resources/images/about.png</iconset>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>Lyrics</string>
         </property>
        </widget>
       </item>
@@ -249,6 +259,7 @@
     <addaction name="menuPlay"/>
     <addaction name="add_to_fav"/>
     <addaction name="add_to_playlist"/>
+    <addaction name="actionRemove_from_Playlist"/>
     <addaction name="separator"/>
     <addaction name="exit_player"/>
    </widget>
@@ -266,6 +277,7 @@
      <string>Favourites</string>
     </property>
     <addaction name="view_fav"/>
+    <addaction name="actionRemove_from_Favourites"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -417,7 +429,7 @@
      <normaloff>../../resources/images/fav.png</normaloff>../../resources/images/fav.png</iconset>
    </property>
    <property name="text">
-    <string>View Favourites</string>
+    <string>Play Favourites</string>
    </property>
   </action>
   <action name="search_playlist">
@@ -427,6 +439,24 @@
    </property>
    <property name="text">
     <string>Search Playlist</string>
+   </property>
+  </action>
+  <action name="actionRemove_from_Playlist">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/delete.png</normaloff>../../resources/images/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove from Playlist</string>
+   </property>
+  </action>
+  <action name="actionRemove_from_Favourites">
+   <property name="icon">
+    <iconset>
+     <normaloff>../../resources/images/delete.png</normaloff>../../resources/images/delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>Remove from Favourites</string>
    </property>
   </action>
  </widget>
