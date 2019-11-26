@@ -58,21 +58,17 @@ font: 14pt &quot;Ubuntu&quot;;</string>
     <string>Playlist Name:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit">
+  <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
      <x>160</x>
      <y>20</y>
-     <width>221</width>
+     <width>211</width>
      <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(238, 238, 236);
-border-color: rgb(32, 74, 135);</string>
-   </property>
-   <property name="text">
-    <string/>
+    <string notr="true">background-color: rgb(238, 238, 236);</string>
    </property>
   </widget>
  </widget>

@@ -13,6 +13,18 @@
     <height>529</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>691</width>
+    <height>529</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>691</width>
+    <height>529</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Jive Music Player</string>
   </property>
@@ -35,10 +47,16 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="songThumbnail">
+        <property name="minimumSize">
+         <size>
+          <width>435</width>
+          <height>366</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
-          <width>1000</width>
-          <height>800</height>
+          <width>435</width>
+          <height>366</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -198,13 +216,6 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="lyricsButton">
-        <property name="text">
-         <string>Lyrics</string>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="volume">
         <property name="text">
          <string/>
@@ -265,7 +276,7 @@
     <addaction name="menuPlay"/>
     <addaction name="add_to_fav"/>
     <addaction name="add_to_playlist"/>
-    <addaction name="actionRemove_from_Playlist"/>
+    <addaction name="rem_from_playlist"/>
     <addaction name="separator"/>
     <addaction name="exit_player"/>
    </widget>
@@ -276,14 +287,13 @@
     <addaction name="new_playlist"/>
     <addaction name="play_playlist"/>
     <addaction name="delete_playlist"/>
-    <addaction name="search_playlist"/>
    </widget>
    <widget class="QMenu" name="menuFavourites">
     <property name="title">
      <string>Favourites</string>
     </property>
-    <addaction name="view_fav"/>
-    <addaction name="actionRemove_from_Favourites"/>
+    <addaction name="play_fav"/>
+    <addaction name="rem_from_fav"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
@@ -326,8 +336,8 @@
    <addaction name="add_to_playlist"/>
    <addaction name="new_playlist"/>
    <addaction name="play_playlist"/>
-   <addaction name="view_fav"/>
-   <addaction name="search_playlist"/>
+   <addaction name="play_fav"/>
+   <addaction name="about"/>
   </widget>
   <action name="menuPlay">
    <property name="icon">
@@ -429,7 +439,7 @@
     <string>Delete Playlist</string>
    </property>
   </action>
-  <action name="view_fav">
+  <action name="play_fav">
    <property name="icon">
     <iconset>
      <normaloff>../../resources/images/fav.png</normaloff>../../resources/images/fav.png</iconset>
@@ -447,7 +457,7 @@
     <string>Search Playlist</string>
    </property>
   </action>
-  <action name="actionRemove_from_Playlist">
+  <action name="rem_from_playlist">
    <property name="icon">
     <iconset>
      <normaloff>../../resources/images/delete.png</normaloff>../../resources/images/delete.png</iconset>
@@ -456,7 +466,7 @@
     <string>Remove from Playlist</string>
    </property>
   </action>
-  <action name="actionRemove_from_Favourites">
+  <action name="rem_from_fav">
    <property name="icon">
     <iconset>
      <normaloff>../../resources/images/delete.png</normaloff>../../resources/images/delete.png</iconset>
