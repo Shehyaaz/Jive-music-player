@@ -15,6 +15,8 @@ class Ui_aboutWindow(object):
         aboutWindow.setObjectName("aboutWindow")
         aboutWindow.setWindowModality(QtCore.Qt.ApplicationModal)
         aboutWindow.resize(300, 201)
+        aboutWindow.setMinimumSize(QtCore.QSize(300, 201))
+        aboutWindow.setMaximumSize(QtCore.QSize(300, 201))
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../../resources/images/about.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         aboutWindow.setWindowIcon(icon)

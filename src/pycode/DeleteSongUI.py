@@ -11,11 +11,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def setupUi(self, Dialog, defaultTheme):
         Dialog.setObjectName("Dialog")
         Dialog.setWindowModality(QtCore.Qt.ApplicationModal)
         Dialog.resize(400, 163)
-        Dialog.setStyleSheet("background-color: rgb(114, 159, 207);")
+        if defaultTheme:
+            Dialog.setStyleSheet("background-color: rgb(114, 159, 207);")
+        else:
+            Dialog.setStyleSheet("background-color: rgb(150, 150, 150);")
         Dialog.setModal(False)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(30, 120, 341, 32))

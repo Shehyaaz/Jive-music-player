@@ -11,11 +11,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class Ui_Dialog(object):
-    def setupUi(self, Dialog):
+    def setupUi(self, Dialog, defaultTheme):
         Dialog.setObjectName("Dialog")
         Dialog.setWindowModality(QtCore.Qt.ApplicationModal)
         Dialog.resize(400, 100)
-        Dialog.setStyleSheet("background-color: rgb(114, 159, 207);")
+        if defaultTheme:
+            Dialog.setStyleSheet("background-color: rgb(114, 159, 207);")
+        else:
+            Dialog.setStyleSheet("background-color: rgb(150, 150, 150);")
         Dialog.setModal(False)
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(40, 60, 341, 32))
@@ -28,12 +31,10 @@ class Ui_Dialog(object):
         self.label.setStyleSheet("color: rgb(238, 238, 236);\n"
 "font: 14pt \"Ubuntu\";")
         self.label.setObjectName("label")
-        self.lineEdit = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit.setGeometry(QtCore.QRect(160, 20, 221, 31))
-        self.lineEdit.setStyleSheet("background-color: rgb(238, 238, 236);\n"
-"border-color: rgb(32, 74, 135);")
-        self.lineEdit.setText("")
-        self.lineEdit.setObjectName("lineEdit")
+        self.comboBox = QtWidgets.QComboBox(Dialog)
+        self.comboBox.setGeometry(QtCore.QRect(160, 20, 211, 31))
+        self.comboBox.setStyleSheet("background-color: rgb(238, 238, 236);")
+        self.comboBox.setObjectName("comboBox")
 
         self.retranslateUi(Dialog)
         self.buttonBox.accepted.connect(Dialog.accept)
